@@ -12,16 +12,25 @@ const time = 3600; // seconds (1 hour)
 const d = 0; // distance (km)
 const fuel = 5000; // remaining fuel (kg)
 const fbr = 0.5; // fuel burn rate (kg/s)
-
-
-const d2 = d + (vel*time) //calcultes new distance
+const timeHours = time/3600; //this is the time in hours 
+ 
+const d2 = d + (vel*timeHours) //calcultes new distance
 const rf = fbr*time //calculates remaining fuel
-const vel2 = calcNewVel(acc, vel, time) //calculates new velocity based on acceleration
+const vel2 = calcNewVel(vel, acc, time) //calculates new velocity based on acceleration
 
 // Pick up an error with how the function below is called and make it robust to such errors
-calcNewVel = (vel, acc, time) => { 
+// What i did was added function and the function name remains CalNewVel
+function calcNewVel (vel, acc, time) { 
+  //What i meant here is vel should strictly only equal to number
+  if (typeof vel  !=="number" || typeof acc !=="number" || typeof time !=="number") {
+    //if not equal to a number it will give the user an error that numbers are required as stated below
+    throw new Error ("Required to use numbers only")
+  }
   return vel + (acc*time)
 }
+
+
+
 
 console.log(`Corrected New Velocity: ${vel2} km/h`);
 console.log(`Corrected New Distance: ${d2} km`);
